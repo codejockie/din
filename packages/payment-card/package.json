@@ -1,0 +1,21 @@
+{
+  "name": "payment-card",
+  "version": "0.0.0",
+  "description": "A payment card input that recognises major payment providers library",
+  "author": "John C. Kennedy <devjckennedy@gmail.com>",
+  "homepage": "",
+  "license": "ISC",
+  "main": "src/index.ts",
+  "directories": {
+    "lib": "src",
+    "test": "__tests__"
+  },
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "test": "",
+    "build": "bili --config ../../bili.config.ts",
+    "watch": "bili --watch --config ../../bili.config.ts"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "name": "calendar",
+  "version": "0.0.0",
+  "description": "A calendar widget library",
+  "author": "John C. Kennedy <devjckennedy@gmail.com>",
+  "homepage": "",
+  "license": "ISC",
+  "main": "src/index.ts",
+  "directories": {
+    "lib": "src",
+    "test": "__tests__"
+  },
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "test": "node ./__tests__/calendar.test.js",
+    "build": "bili --config ../../bili.config.ts",
+    "watch": "bili --watch --config ../../bili.config.ts"
+  }
+}
