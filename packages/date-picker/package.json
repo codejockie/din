@@ -17,5 +17,9 @@
     "test": "node ./__tests__/calendar.test.js",
     "build": "bili --config ../../bili.config.ts",
     "watch": "bili --watch --config ../../bili.config.ts"
+  },
+  "dependencies": {
+    "clsx": "^1.2.1",
+    "dayjs": "^1.11.7"
   }
 }

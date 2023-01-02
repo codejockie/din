@@ -1,0 +1,9 @@
+.CalendarHeader {
+  color: red;
+  font-size: 12px;
+  padding: 0 15px;
+}
+
+.CalendarHeader p {
+  margin: 0;
+}
