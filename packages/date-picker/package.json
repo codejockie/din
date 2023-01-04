@@ -20,8 +20,7 @@
     "watch": "bili --watch --config ../../bili.config.ts"
   },
   "dependencies": {
-    "@codejockie/calendar": "*",
-    "clsx": "^1.2.1"
+    "@codejockie/calendar": "*"
   },
   "peerDependencies": {
     "react": "^18.2.0",
