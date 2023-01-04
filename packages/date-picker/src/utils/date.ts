@@ -1,11 +1,5 @@
-import { Dayjs } from "dayjs";
-
-const date = new Date();
-export const currentDay = date.getDate();
-export const currentMonth = date.getMonth();
-export const currentYear = date.getFullYear();
-export const fullWeekDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-export const monthNames = [
+export const WEEK_DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+export const MONTH_NAMES = [
   "January",
   "February",
   "March",
@@ -20,39 +14,30 @@ export const monthNames = [
   "December",
 ];
 
-export const getDaysInMonth = (month = currentMonth, year = currentYear) => {
-  // month is zero index based
-  // 0 is the last day of previous month
-  return new Date(year, month, 0).getDate();
-};
+function getFirstDayOfMonth(date: Date) {
+  return new Date(date.getFullYear(), date.getMonth(), 1);
+}
 
-export const getFirstDayWeekDay = (
-  month = currentMonth,
-  year = currentYear
-) => {
-  return new Date(year, month, 1).getDay();
-};
-
-export const getLastDayWeekDay = (month = currentMonth, year = currentYear) => {
-  return new Date(year, month + 1, 0).getDay();
-};
-
-export const getYearRanges = (from = 1900, to = 2050) => {
-  const length = to + 1 - from;
-  return Array.from({ length }, (_, i) => from + i);
-};
-
-export function changeDateMonth(date: Dayjs, isNextMonth: boolean): Dayjs {
-  // should decrease year
-  if (date.month() === 0 && !isNextMonth) {
-    return date.set("year", date.year() - 1).set("month", 11);
+export function changeDateMonth(date: Date, isNextMonth: boolean): Date {
+  let dateClone = new Date(date.getTime());
+  dateClone = getFirstDayOfMonth(date);
+  const month = dateClone.getMonth();
+  const year = dateClone.getFullYear();
+  // Decrease year
+  if (month === 0 && !isNextMonth) {
+    dateClone.setFullYear(year - 1);
+    dateClone.setMonth(11);
+    return dateClone;
   }
 
-  // should increase year
-  if (date.month() === 11 && isNextMonth) {
-    return date.set("year", date.year() + 1).set("month", 0);
+  // Increase year
+  if (month === 11 && isNextMonth) {
+    dateClone.setFullYear(year + 1);
+    dateClone.setMonth(0);
+    return dateClone;
   }
 
-  // add or substract
-  return date.add(isNextMonth ? 1 : -1, "month");
+  // Add or substract
+  dateClone.setMonth(month + (isNextMonth ? 1 : -1));
+  return dateClone;
 }

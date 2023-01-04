@@ -1,18 +1,17 @@
 import React, { useState } from "react";
-import dayjs, { Dayjs } from "dayjs";
-import { DatePickerCalendar } from "./DatePickerCalendar";
+import { Calendar } from "@codejockie/calendar";
 import { DatePickerSelector } from "./DatePickerSelector";
 import "./DatePicker.css";
-import { CalendarHeader } from "./CalendarHeader";
 
 type CommonProps = {
   selectedDate?: Date;
+  fontFamily?: string;
 };
 
 type TruncateProps =
   | {
       calendar?: false;
-      onChange(newDate: Dayjs): void;
+      onChange(newDate: Date): void;
     }
   | {
       calendar: true;
@@ -22,22 +21,28 @@ type DatePickerProps = CommonProps & TruncateProps;
 
 export const DatePicker: React.FC<DatePickerProps> = ({
   calendar = false,
-  selectedDate,
+  selectedDate = new Date(),
+  fontFamily,
   onChange,
 }) => {
-  const [date] = useState(dayjs(selectedDate));
-  const [shownDate, setShownDate] = useState(dayjs(selectedDate));
+  const [date, setSelectedDate] = useState(selectedDate);
+  const [shownDate, setShownDate] = useState(date);
+  
+  const handleOnChange = (newDate: Date) => {
+    setShownDate(newDate);
+    setSelectedDate(newDate);
+    onChange?.(newDate);
+  };
 
   return (
     <div className={"DatePicker"}>
       {!calendar && (
-        <DatePickerSelector date={shownDate} setDate={setShownDate} />
+        <DatePickerSelector date={shownDate} setDate={setShownDate} fontFamily={fontFamily} />
       )}
-      {calendar && <CalendarHeader date={date} />}
-      <DatePickerCalendar
+      <Calendar
         selectedDate={date}
         shownDate={shownDate}
-        onChange={onChange}
+        onChange={handleOnChange}
       />
     </div>
   );

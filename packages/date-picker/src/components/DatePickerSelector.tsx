@@ -1,47 +1,71 @@
 import React from "react";
-import { Dayjs } from "dayjs";
-import { ChevronDownIcon } from "./ChevronDownIcon";
-import { monthNames, changeDateMonth } from "../utils";
-import "./DatePickerSelector.css";
+import styled from "styled-components";
+import { MONTH_NAMES, changeDateMonth } from "../utils";
+import { BackButton, NextButton } from "../views";
+
+type SelectorProps = {
+  fontFamily?: string;
+};
+
+const Selector = styled.div<SelectorProps>`
+  align-items: center;
+  display: flex;
+  font-family: ${(props) => props.fontFamily ?? "inherit"};
+  justify-content: space-between;
+  padding-bottom: 0.5rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  padding-top: 0.5rem;
+`;
+
+const MonthSpan = styled.span`
+  --text-opacity: 1;
+  color: #2d3748;
+  color: rgba(45, 55, 72, var(--text-opacity));
+  cursor: pointer;
+  font-size: 1.125rem;
+`;
+const YearSpan = styled.span`
+  --text-opacity: 1;
+  color: #718096;
+  color: rgba(113, 128, 150, var(--text-opacity));
+  cursor: pointer;
+  font-size: 1.125rem;
+  font-weight: 400;
+  margin-left: 0.25rem;
+`;
 
 type DatePickerSelectorProps = {
-  date: Dayjs;
-  setDate(newDate: Dayjs): void;
-};
+  date: Date;
+  setDate(newDate: Date): void;
+} & SelectorProps;
 
 export const DatePickerSelector = ({
   date,
+  fontFamily,
   setDate,
 }: DatePickerSelectorProps) => {
-  const year = date.year();
+  const year = date.getFullYear();
+  const month = date.getMonth();
 
   const handleIconClick = (isNext: boolean) => {
     return () => {
-      setDate(changeDateMonth(date, isNext));
+      const newDate = changeDateMonth(date, isNext);
+      setDate(newDate);
     };
   };
 
   return (
     <>
       {/* Date Picker Title and Month Selector */}
-      <div className={"DatePickerSelector"}>
-        <div
-          className={"DatePickerSelector__icon DatePickerSelector__iconLeft btn btn-outline-primary btn-sm"}
-          onClick={handleIconClick(false)}>
-          <ChevronDownIcon />
+      <Selector fontFamily={fontFamily}>
+        <BackButton onClick={handleIconClick(false)} />
+        <div>
+          <MonthSpan>{MONTH_NAMES[month]}</MonthSpan>
+          <YearSpan>{year}</YearSpan>
         </div>
-        <div className={"DatePickerSelector__date btn btn-outline-primary btn-sm"}>
-          {date.format("MMMM")}
-        </div>
-        <div className={"DatePickerSelector__date btn btn-outline-primary btn-sm"}>
-          {year}
-        </div>
-        <div
-          className={"DatePickerSelector__icon DatePickerSelector__iconRight btn btn-outline-primary btn-sm"}
-          onClick={handleIconClick(true)}>
-          <ChevronDownIcon />
-        </div>
-      </div>
+        <NextButton onClick={handleIconClick(true)} />
+      </Selector>
     </>
   );
 };

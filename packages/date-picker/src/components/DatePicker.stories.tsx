@@ -14,7 +14,7 @@ export default {
   title: "Date Picker",
   component: Component,
   parameters: {
-    controls: { hideNoControlsWarning: true }
+    controls: { hideNoControlsWarning: true },
   },
   argTypes: {
     selectedDate: {
@@ -51,19 +51,22 @@ export default {
   },
 } as ComponentMeta<typeof Component>;
 
-const Template: ComponentStory<typeof Component> = (args) => <Component {...args} />;
+const Template: ComponentStory<typeof Component> = (args) => (
+  <Component {...args} />
+);
 
 export const Primary = Template.bind({});
 Primary.args = {
   selectedDate: new Date(),
   calendar: true,
+  fontFamily: '"Nova Mono", monospace',
   // onChange: (newDate) => {/*  */},
 };
 
 export const Calendar: ComponentStory<typeof Component> = () => (
-  <Component calendar={true} />
+  <Component calendar={true} fontFamily={'"Nova Mono", monospace'} />
 );
 
 export const DatePicker: ComponentStory<typeof Component> = () => (
-  <Component onChange={() => {}} />
+  <Component onChange={() => {}} fontFamily={'"Nova Mono", monospace'} />
 );

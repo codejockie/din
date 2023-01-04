@@ -3,7 +3,7 @@
   "exclude": ["node_modules", "tests"],
   "include": ["src/**/*"],
   "compilerOptions": {
-    "declarationDir": "./typings",
+    "declarationDir": "./types",
     "jsx": "react"
   }
 }

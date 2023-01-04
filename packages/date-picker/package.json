@@ -1,11 +1,13 @@
 {
-  "name": "calendar",
-  "version": "0.0.0",
-  "description": "A calendar widget library",
+  "name": "@codejockie/date-picker",
+  "version": "0.0.1",
+  "description": "A date picker library for selecting a date.",
   "author": "John C. Kennedy <devjckennedy@gmail.com>",
   "homepage": "",
   "license": "ISC",
-  "main": "src/index.ts",
+  "main": "dist/index",
+  "module": "dist/index.esm",
+  "typings": "types/index",
   "directories": {
     "lib": "src",
     "test": "__tests__"
@@ -14,12 +16,15 @@
     "src"
   ],
   "scripts": {
-    "test": "node ./__tests__/calendar.test.js",
     "build": "bili --config ../../bili.config.ts",
     "watch": "bili --watch --config ../../bili.config.ts"
   },
   "dependencies": {
-    "clsx": "^1.2.1",
-    "dayjs": "^1.11.7"
+    "@codejockie/calendar": "*",
+    "clsx": "^1.2.1"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "styled-components": "^5.3.6"
   }
 }
