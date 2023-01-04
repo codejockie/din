@@ -1,8 +1,7 @@
 module.exports = {
   "stories": [
-    // "../stories/**/*.stories.mdx",
-    // "../stories/**/*.stories.@(js|jsx|ts|tsx)",
-    "../packages/date-picker/src/**/*.stories.@(tsx|mdx)"
+    "../packages/calendar/src/**/*.stories.@(tsx|mdx)",
+    "../packages/date-picker/src/**/*.stories.@(tsx|mdx)",
   ],
   "addons": [
     "@storybook/addon-links",
