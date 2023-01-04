@@ -13,14 +13,12 @@ const config: Config = {
     },
   },
 
-  // Let's take this opportunity to move the CLI flags here as well
   input: "src/index.ts",
   output: {
     format: ["cjs", "esm"],
     moduleName: "Package",
     minify: true,
-    // format: ["umd", "esm"],
-    dir: "./build",
+    dir: "./dist",
   },
 };
 
