@@ -1,0 +1,9 @@
+{
+  "extends": "../../tsconfig.json",
+  "exclude": ["node_modules", "tests"],
+  "include": ["src/**/*"],
+  "compilerOptions": {
+    "declarationDir": "./types",
+    "jsx": "react"
+  }
+}

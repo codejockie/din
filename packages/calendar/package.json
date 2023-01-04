@@ -1,0 +1,27 @@
+{
+  "name": "@codejockie/calendar",
+  "version": "0.0.1",
+  "description": "A calender library",
+  "author": "John C. Kennedy <devjckennedy@gmail.com>",
+  "homepage": "",
+  "license": "ISC",
+  "main": "dist/index",
+  "module": "dist/index.esm",
+  "typings": "types/index",
+  "directories": {
+    "lib": "src",
+    "test": "__tests__"
+  },
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "build": "bili --config ../../bili.config.ts",
+    "watch": "bili --watch --config ../../bili.config.ts"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "styled-components": "^5.3.6"
+  },
+  "dependencies": {}
+}
