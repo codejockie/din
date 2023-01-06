@@ -52,3 +52,32 @@ export const getYearRanges = (from = 1900, to = 4000) => {
   const length = to + 1 - from;
   return Array.from({ length }, (_, i) => from + i);
 };
+
+export const isToday = (date: Date) => {
+  return date.toDateString() === new Date().toDateString();
+};
+
+const getFirstDay = (date: Date) => {
+  return new Date(date.getFullYear(), date.getMonth(), 1);
+}
+
+export function changeMonth(date: Date, isNextMonth: boolean): Date {
+  let dateClone = new Date(date.getTime());
+  dateClone = getFirstDay(date);
+  const month = dateClone.getMonth();
+  const year = dateClone.getFullYear();
+  const isPastYear = month === 0 && !isNextMonth;
+  const isNextYear = month === 11 && isNextMonth;
+
+  if (isPastYear || isNextYear) {
+    const monthsToAdd = isPastYear ? 11 : 0;
+    const yearsToAdd = year + (isPastYear ? -1 : 1);
+    dateClone.setMonth(monthsToAdd);
+    dateClone.setFullYear(yearsToAdd);
+    return dateClone;
+  }
+
+  // Add or subtract month
+  dateClone.setMonth(month + (isNextMonth ? 1 : -1));
+  return dateClone;
+}
