@@ -2,8 +2,10 @@ import React, { FC, useState } from "react";
 import styled from "styled-components";
 import { useDate } from "../hooks";
 import { CalendarEvent } from "../models";
-import { BackButton, Modal, NextButton } from "../ui";
 import { changeMonth, isToday, MONTH_NAMES, WEEK_DAYS } from "../utils";
+import { BackButton } from "./BackButton";
+import { Modal } from "./Modal";
+import { NextButton } from "./NextButton";
 
 const Container = styled.div`
   --text-opacity: 1;
@@ -305,7 +307,7 @@ export const FullCalendar: FC<FullCalendarProps> = ({ date, events, addEvent }) 
         </DatesWrapper>
       </CalendarWrapper>
       {open && selectedDate && (
-        <Modal date={selectedDate} closeModal={closeModal} addEvent={addEvent} />
+        <Modal date={selectedDate} closeModal={closeModal} onSave={addEvent} />
       )}
     </Container>
   );

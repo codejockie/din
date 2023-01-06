@@ -1,6 +1,6 @@
 import React, { FC } from "react";
-import { IconButton, IconButtonProps } from "./IconButton";
-import { Svg } from "./Svg";
+import { IconButton, IconButtonProps } from "../ui/IconButton";
+import { Svg } from "../ui/Svg";
 
 export const NextButton: FC<IconButtonProps> = ({ className, onClick }) => (
   <IconButton onClick={onClick}>

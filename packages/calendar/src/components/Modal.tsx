@@ -1,11 +1,11 @@
 import React, { ChangeEventHandler, FC, useEffect, useState } from "react";
 import styled from "styled-components";
 import { CalendarEvent } from "../models";
-import { Button, DarkButton } from "./Button";
+import { Button, DarkButton } from "../ui/Button";
 import { CloseButton } from "./CloseButton";
-import { Field } from "./Field";
-import { Input } from "./Input";
-import { Label } from "./Label";
+import { Field } from "../ui/Field";
+import { Input } from "../ui/Input";
+import { Label } from "../ui/Label";
 
 const Backdrop = styled.div`
   -webkit-text-size-adjust: 100%;
@@ -81,13 +81,13 @@ type ModalProps = {
   date: Date;
   title?: string;
   closeModal(): void;
-  addEvent(event: CalendarEvent): void;
+  onSave(event: CalendarEvent): void;
 };
 
 export const Modal: FC<ModalProps> = ({
   date,
   title,
-  addEvent,
+  onSave,
   closeModal,
 }) => {
   const [event, setEvent] = useState<Required<CalendarEvent>>({
@@ -102,7 +102,7 @@ export const Modal: FC<ModalProps> = ({
 
   const handleSaveClick = () => {
     return () => {
-      addEvent({ ...event, date: new Date(event.date) });
+      onSave({ ...event, date: new Date(event.date) });
       setEvent({ date: null as any, title: "", theme: "tomato" });
       closeModal();
     };
