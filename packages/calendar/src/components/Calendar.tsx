@@ -17,54 +17,75 @@ type DateCellProps = {
   selectedColour?: string;
 };
 
-type CalendarProps = {
+type CommonProps = {
   selectedDate: Date;
   shownDate: Date;
-  showHeader?: boolean;
-  showYear?: boolean;
   cellProps?: {
     fontFamily?: string;
     selectedBg?: string;
     selectedColour?: string;
   };
-  headerProps?: {
-    colour?: string;
-    fontFamily?: string;
-  };
   onChange?(newDate: Date): void;
 };
 
+type TruncateProps =
+  | {
+      showHeader?: true;
+      showYear?: boolean;
+      headerProps?: {
+        colour?: string;
+        fontFamily?: string;
+      };
+    }
+  | {
+      showHeader?: false;
+      showYear?: never;
+      headerProps: never;
+    };
+
+type CalendarProps = CommonProps & TruncateProps;
+
+const Container = styled.div`
+  padding: 0 14px 16px 19px;
+  position: relative;
+  user-select: none;
+`;
+
 const Weekdays = styled.div<WeekdaysProps>`
-  margin: 0 5px;
   margin-bottom: 8px;
+  align-items: center;
   display: flex;
   user-select: none;
 `;
 
 const DatesRow = styled.div`
+  align-items: center;
   display: flex;
-  margin: 0 5px;
 `;
 
 const Cell = styled.div<CellProps>`
-  padding: 4px;
-  width: 32px;
-  height: 32px;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  line-height: 24px;
+  font-size: 10px;
+  font-weight: 500;
   margin: 0 2px;
-  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
 
   color: ${(props) => (props.isWeekend ? "#6c757d" : props.color)};
-  font-family: ${(props) => props.fontFamily ?? '"Nova Mono", monospace'};
+  font-family: ${(props) =>
+    props.fontFamily ?? "Roboto,Helvetica,Arial,sans-serif"};
 `;
 
 const DateCell = styled(Cell)<DateCellProps>`
+  border-radius: 50%;
   cursor: ${(props) => (props.isDisabled ? "default" : "pointer")};
   transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-  box-shadow: ${({ isMuted }) =>
-    !isMuted ? "0 0.125rem 0.25rem rgba(0, 0, 0, 0.075)" : "none"};
+  /* box-shadow: ${({ isMuted }) =>
+    !isMuted ? "0 0.125rem 0.25rem rgba(0, 0, 0, 0.075)" : "none"}; */
   background-color: ${(props) => {
     if (props.isSelected) {
       return props.selectedBg ?? "#ff0000";
@@ -78,10 +99,10 @@ const DateCell = styled(Cell)<DateCellProps>`
       return "#ff0000";
     }
     if (props.isMuted) {
-      return "#f0f0f0";
+      return "#70757a";
     }
   }};
-  user-select: ${(props) => (props.isDisabled ? "none" : "auto")};
+  user-select: none;
 
   &:active {
     background-color: "#d1d1d1";
@@ -110,7 +131,7 @@ export const Calendar = ({
   };
 
   return (
-    <>
+    <Container>
       {/* Month and/or Year title */}
       <CalendarHeader
         date={shownDate}
@@ -152,6 +173,6 @@ export const Calendar = ({
           })}
         </DatesRow>
       ))}
-    </>
+    </Container>
   );
 };

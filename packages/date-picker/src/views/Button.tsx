@@ -1,9 +1,14 @@
 import styled from "styled-components";
 
+export type ButtonProps = {
+  className?: string;
+  onClick(): void;
+};
+
 export const Button = styled.button`
   appearance: button;
   align-items: center;
-  border-radius: 0.5rem;
+  border-radius: 50%;
   background-image: none;
   background-color: transparent;
   border-width: 0;

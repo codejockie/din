@@ -17,7 +17,7 @@ export default {
       description: "The currently selected date.",
       type: {
         name: "string",
-        required: false,
+        required: true,
       },
       table: {
         defaultValue: {
@@ -30,7 +30,7 @@ export default {
       description: "The date visible on the calendar.",
       type: {
         name: "string",
-        required: false,
+        required: true,
       },
       table: {
         defaultValue: {
@@ -65,7 +65,7 @@ export default {
       },
     },
     onChange: {
-      if: { arg: "calendar", neq: true },
+      description: "Date selection handler."
     },
   },
 } as ComponentMeta<typeof Component>;

@@ -1,7 +1,16 @@
 import React, { useState } from "react";
 import { Calendar } from "@codejockie/calendar";
 import { DatePickerSelector } from "./DatePickerSelector";
-import "./DatePicker.css";
+import styled from "styled-components";
+
+const Container = styled.div`
+  /* box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; */
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 230px;
+`;
 
 type CommonProps = {
   selectedDate?: Date;
@@ -27,7 +36,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
 }) => {
   const [date, setSelectedDate] = useState(selectedDate);
   const [shownDate, setShownDate] = useState(date);
-  
+
   const handleOnChange = (newDate: Date) => {
     setShownDate(newDate);
     setSelectedDate(newDate);
@@ -35,15 +44,19 @@ export const DatePicker: React.FC<DatePickerProps> = ({
   };
 
   return (
-    <div className={"DatePicker"}>
+    <Container>
       {!calendar && (
-        <DatePickerSelector date={shownDate} setDate={setShownDate} fontFamily={fontFamily} />
+        <DatePickerSelector
+          date={shownDate}
+          setDate={setShownDate}
+          fontFamily={fontFamily}
+        />
       )}
       <Calendar
         selectedDate={date}
         shownDate={shownDate}
         onChange={handleOnChange}
       />
-    </div>
+    </Container>
   );
 };

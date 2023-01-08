@@ -8,14 +8,21 @@ type SelectorProps = {
 };
 
 const Selector = styled.div<SelectorProps>`
-  align-items: center;
-  display: flex;
+  font-size: 14px;
   font-family: ${(props) => props.fontFamily ?? "inherit"};
-  justify-content: space-between;
-  padding-bottom: 0.5rem;
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
-  padding-top: 0.5rem;
+  height: 32px;
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  width: 200px;
+`;
+
+const Header = styled.span`
+  flex-grow: 1;
+  padding-left: 10px;
+  font-weight: 500;
+  letter-spacing: 0.25px;
+  line-height: 20px;
 `;
 
 const MonthSpan = styled.span`
@@ -23,14 +30,12 @@ const MonthSpan = styled.span`
   color: #2d3748;
   color: rgba(45, 55, 72, var(--text-opacity));
   cursor: pointer;
-  font-size: 1.125rem;
 `;
 const YearSpan = styled.span`
   --text-opacity: 1;
   color: #718096;
   color: rgba(113, 128, 150, var(--text-opacity));
   cursor: pointer;
-  font-size: 1.125rem;
   font-weight: 400;
   margin-left: 0.25rem;
 `;
@@ -59,11 +64,11 @@ export const DatePickerSelector = ({
     <>
       {/* Date Picker Title and Month Selector */}
       <Selector fontFamily={fontFamily}>
-        <BackButton onClick={handleIconClick(false)} />
-        <div>
+        <Header>
           <MonthSpan>{MONTH_NAMES[month]}</MonthSpan>
           <YearSpan>{year}</YearSpan>
-        </div>
+        </Header>
+        <BackButton onClick={handleIconClick(false)} />
         <NextButton onClick={handleIconClick(true)} />
       </Selector>
     </>

@@ -26,7 +26,7 @@ const Wrapper = styled.div<WrapperProps>`
   color: ${(props) => props.colour ?? "#ff0000"};
   font-size: 12px;
   font-family: ${(props) => props.fontFamily ?? '"Nova Mono", monospace'};
-  padding: 0 15px;
+  padding: 0 5px;
   user-select: none;
 
   & p {
