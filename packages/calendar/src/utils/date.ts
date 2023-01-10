@@ -22,27 +22,27 @@ export const getDaysInMonth = (date: Date) => {
   return new Date(year, month, 0).getDate();
 };
 
-export const addMonths = (date = new Date(), numOfMonths = 1) => {
+export const addMonth = (date = new Date(), numOfMonths = 1) => {
   const dateClone = new Date(date.getTime());
   dateClone.setMonth(dateClone.getMonth() + numOfMonths);
 
   return dateClone;
 };
 
-export const subtractMonths = (date = new Date(), numOfMonths = 1) => {
+export const subMonth = (date = new Date(), numOfMonths = 1) => {
   const dateCopy = new Date(date.getTime());
   dateCopy.setMonth(dateCopy.getMonth() - numOfMonths);
 
   return dateCopy;
 };
 
-export const getFirstDayWeekDay = (date = new Date()) => {
+export const getFirstDayOfWeekInMonth = (date = new Date()) => {
   const month = date.getMonth();
   const year = date.getFullYear();
   return new Date(year, month, 1).getDay();
 };
 
-export const getLastDayWeekDay = (date = new Date()) => {
+export const getLastDayOfWeekInMonth = (date = new Date()) => {
   const month = date.getMonth();
   const year = date.getFullYear();
   return new Date(year, month + 1, 0).getDay();

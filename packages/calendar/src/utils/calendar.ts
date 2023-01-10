@@ -1,8 +1,8 @@
 import {
-  addMonths,
+  addMonth,
   getDaysInMonth,
-  getLastDayWeekDay,
-  subtractMonths,
+  getLastDayOfWeekInMonth,
+  subMonth,
 } from "./date";
 
 const TOTAL_WEEKDAYS = 6;
@@ -47,11 +47,11 @@ const getCalendarDateCells = (date: Date) => {
   const year = date.getFullYear();
   const calendarCells = [];
   const totalDaysInMonth = getDaysInMonth(date);
-  const lastMonth = subtractMonths(date);
-  const nextMonth = addMonths(date);
+  const lastMonth = subMonth(date);
+  const nextMonth = addMonth(date);
   const lastMonthDaysInMonth = getDaysInMonth(lastMonth);
-  const lastWeekday = getLastDayWeekDay(date);
-  const prevMonthLastWeekday = getLastDayWeekDay(lastMonth);
+  const lastWeekday = getLastDayOfWeekInMonth(date);
+  const prevMonthLastWeekday = getLastDayOfWeekInMonth(lastMonth);
   const cellsToPrepend =
     prevMonthLastWeekday === TOTAL_WEEKDAYS ? -1 : prevMonthLastWeekday;
   const cellsToAppend = TOTAL_WEEKDAYS - lastWeekday;
