@@ -1,18 +1,35 @@
-import { getDaysInMonth, getFirstDayWeekDay } from "../utils";
+import {
+  getDaysInMonth,
+  getFirstDayOfWeekInMonth,
+  getLastDayOfWeekInMonth,
+  subMonth,
+} from "../utils";
+
+type Day = {
+  day: number;
+  date: Date;
+};
 
 type Dates = {
-  blankDays: number[];
-  days: { day: number; date: Date }[];
+  blankDays: Day[];
+  days: Day[];
 };
 
 export const useDate = (date: Date): Dates => {
   const daysInMonth = getDaysInMonth(date);
-  const dayOfWeek = getFirstDayWeekDay(date);
+  const dayOfWeek = getFirstDayOfWeekInMonth(date);
+  const lastMonth = subMonth(date);
+  const daysInPrevMonth = getDaysInMonth(lastMonth);
+  const prevMonthLastDayOfWeek = getLastDayOfWeekInMonth(lastMonth);
+  const startDay = daysInPrevMonth - prevMonthLastDayOfWeek;
   const blankDays = [];
   const days = [];
 
-  for (var i = 1; i <= dayOfWeek; i++) {
-    blankDays.push(i);
+  for (var i = 1, j = startDay; i <= dayOfWeek; i++, j++) {
+    blankDays.push({
+      day: j,
+      date: new Date(lastMonth.getFullYear(), lastMonth.getMonth(), j),
+    });
   }
 
   for (var i = 1; i <= daysInMonth; i++) {
