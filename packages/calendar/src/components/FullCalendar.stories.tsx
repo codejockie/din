@@ -74,3 +74,24 @@ Default.args = {
     events?.push(newEvent as any);
   },
 };
+Default.argTypes = {
+  locale: {
+    control: false,
+    table: {
+      disable: true,
+    },
+  },
+};
+
+export const Localised: ComponentStory<typeof Component> = (args) => (
+  <Component {...args} date={new Date(args.date)} />
+);
+
+Localised.args = {
+  date,
+  events,
+  locale: "ja-JP",
+  addEvent(newEvent) {
+    events?.push(newEvent as any);
+  },
+};

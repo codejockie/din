@@ -1,8 +1,14 @@
 import React, { FC, useState } from "react";
 import styled from "styled-components";
-import { useDate } from "../hooks";
+import { useDate, useLocale } from "../hooks";
 import { CalendarEvent } from "../models";
-import { changeMonth, isToday, MONTH_NAMES, WEEK_DAYS } from "../utils";
+import {
+  changeMonth,
+  isToday,
+  LOCALISED_MONTH_NAMES,
+  LOCALISED_WEEK_DAYS,
+  YEAR_SYMBOLS,
+} from "../utils";
 import { BackButton } from "./BackButton";
 import { Modal } from "./Modal";
 import { NextButton } from "./NextButton";
@@ -232,14 +238,21 @@ const EventText = styled.p`
 type FullCalendarProps = {
   date: Date;
   events: CalendarEvent[];
+  locale?: "en-GB" | "en-US" | "es-ES" | "fr-FR" | "ja-JP";
   addEvent(event: CalendarEvent): void;
 };
 
-export const FullCalendar: FC<FullCalendarProps> = ({ date, events, addEvent }) => {
+export const FullCalendar: FC<FullCalendarProps> = ({
+  date,
+  events,
+  locale,
+  addEvent,
+}) => {
   const [shownDate, setShownDate] = useState(date);
   const [open, setOpen] = useState(false);
+  const defaultLocale = locale ?? useLocale();
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const { blankDays, days } = useDate(shownDate);
+  const { blankDays, days } = useDate(shownDate, defaultLocale);
 
   const handleDayClick = (pickedDate: Date) => {
     return () => {
@@ -269,13 +282,15 @@ export const FullCalendar: FC<FullCalendarProps> = ({ date, events, addEvent }) 
             <NextButton onClick={handleIconClick(true)} />
           </div>
           <div>
-            <MonthSpan>{MONTH_NAMES[shownDate.getMonth()]}</MonthSpan>
-            <YearSpan>{shownDate.getFullYear()}</YearSpan>
+            <MonthSpan>
+              {LOCALISED_MONTH_NAMES[defaultLocale][shownDate.getMonth()]}
+            </MonthSpan>
+            <YearSpan>{shownDate.getFullYear()}{YEAR_SYMBOLS[defaultLocale]}</YearSpan>
           </div>
         </Header>
         <DatesWrapper>
           <Weekdays>
-            {WEEK_DAYS.map((weekday, index) => (
+            {LOCALISED_WEEK_DAYS[defaultLocale].map((weekday, index) => (
               <WeekdayWrapper key={index}>
                 <Weekday>{weekday}</Weekday>
               </WeekdayWrapper>

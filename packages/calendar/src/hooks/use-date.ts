@@ -1,7 +1,8 @@
 import {
+  getBlankDaysLimit,
+  getBlankDaysStart,
   getDaysInMonth,
-  getFirstDayOfWeekInMonth,
-  getLastDayOfWeekInMonth,
+  Locale,
   subMonth,
 } from "../utils";
 
@@ -15,17 +16,15 @@ type Dates = {
   days: Day[];
 };
 
-export const useDate = (date: Date): Dates => {
+export const useDate = (date: Date, locale: Locale): Dates => {
   const daysInMonth = getDaysInMonth(date);
-  const dayOfWeek = getFirstDayOfWeekInMonth(date);
   const lastMonth = subMonth(date);
-  const daysInPrevMonth = getDaysInMonth(lastMonth);
-  const prevMonthLastDayOfWeek = getLastDayOfWeekInMonth(lastMonth);
-  const startDay = daysInPrevMonth - prevMonthLastDayOfWeek;
+  const end = getBlankDaysLimit(date, locale);
+  const start = getBlankDaysStart(date, locale);
   const blankDays = [];
   const days = [];
 
-  for (var i = 1, j = startDay; i <= dayOfWeek; i++, j++) {
+  for (var i = 1, j = start; i <= end; i++, j++) {
     blankDays.push({
       day: j,
       date: new Date(lastMonth.getFullYear(), lastMonth.getMonth(), j),
