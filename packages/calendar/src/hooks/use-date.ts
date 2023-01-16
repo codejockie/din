@@ -2,7 +2,7 @@ import {
   getBlankDaysLimit,
   getBlankDaysStart,
   getDaysInMonth,
-  Locale,
+  Params,
   subMonth,
 } from "../utils";
 
@@ -16,11 +16,11 @@ type Dates = {
   days: Day[];
 };
 
-export const useDate = (date: Date, locale: Locale): Dates => {
+export const useDate = ({ date, locale, firstDay }: Params): Dates => {
   const daysInMonth = getDaysInMonth(date);
   const lastMonth = subMonth(date);
-  const end = getBlankDaysLimit(date, locale);
-  const start = getBlankDaysStart(date, locale);
+  const end = getBlankDaysLimit({ date, locale, firstDay });
+  const start = getBlankDaysStart({ date, locale, firstDay });
   const blankDays = [];
   const days = [];
 

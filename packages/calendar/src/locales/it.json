@@ -1,0 +1,79 @@
+{
+  "calendar": {
+    "months": {
+      "0": "Jennaio",
+      "1": "Febbraio",
+      "2": "Marzo",
+      "3": "Aprile",
+      "4": "Maggio",
+      "5": "Giugno",
+      "6": "Luglio",
+      "7": "Agosto",
+      "8": "Settembre",
+      "9": "Ottobre",
+      "10": "Novembre",
+      "11": "Dicembre"
+    },
+    "daysOfWeek": {
+      "medium": {
+        "0": "lun",
+        "1": "mar",
+        "2": "mer",
+        "3": "gio",
+        "4": "ven",
+        "5": "sab",
+        "6": "dom"
+      },
+      "startsOn": {
+        "mon": {
+          "long": {
+            "0": "lunedì",
+            "1": "martedì",
+            "2": "mercoledì",
+            "3": "giovedì",
+            "4": "venerdì",
+            "5": "sabato",
+            "6": "domenica"
+          },
+          "medium": {
+            "0": "lun",
+            "1": "mar",
+            "2": "mer",
+            "3": "gio",
+            "4": "ven",
+            "5": "sab",
+            "6": "dom"
+          }
+        },
+        "sun": {
+          "long": {
+            "0": "domenica",
+            "1": "lunedì",
+            "2": "martedì",
+            "3": "mercoledì",
+            "4": "giovedì",
+            "5": "venerdì",
+            "6": "sabato"
+          },
+          "medium": {
+            "0": "dom",
+            "1": "lun",
+            "2": "mar",
+            "3": "mer",
+            "4": "gio",
+            "5": "ven",
+            "6": "sab"
+          }
+        }
+      }
+    },
+    "weekdays": {
+      "short": ["L", "M", "M", "G", "V", "S", "D"],
+      "medium": ["lun", "mar", "mer", "gio", "ven", "sab", "dom"],
+      "long": ["lunedì", "martedì", "mercoledì", "giovedì", "venerdì", "sabato", "domenica"]
+    },
+    "year": {
+      "symbol": ""
+    }
+  }
+}

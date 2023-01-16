@@ -1,24 +1,29 @@
-import { LOCALISED_WEEK_DAYS } from "../utils";
-
-export const LocaleMap: Record<string, keyof typeof LOCALISED_WEEK_DAYS> = {
-  en: "en-GB",
-  "en-GB": "en-GB",
-  "en-US": "en-US",
-  es: "es-ES",
-  "es-ES": "es-ES",
-  fr: "fr-FR",
-  "fr-FR": "fr-FR",
-  // it: "it-IT",
-  // "it-IT": "it-IT",
-  "ja-JP": "ja-JP",
-};
+import { Locale, locales } from "../locales";
 
 export const useLocale = () => {
-  const locale = new Intl.NumberFormat().resolvedOptions()
-    .locale as typeof LocaleMap[keyof typeof LocaleMap];
+  const locale = new Intl.NumberFormat().resolvedOptions().locale as Locale;
 
-  if (!LocaleMap[locale]) {
-    return LocaleMap[locale.substring(0, 2)] ?? "en-GB";
+  if (!locales[locale]) {
+    const shortForm = locale.substring(0, 2);
+    switch (shortForm) {
+      case "ar":
+        return "ar";
+      case "en":
+        return "en-GB";
+      case "es":
+        return "es";
+      case "fr":
+        return "fr";
+      case "it":
+        return "it";
+      case "ja":
+        return "ja";
+      case "zh":
+        return "zh";
+
+      default:
+        return "en-GB";
+    }
   }
   return locale;
 };

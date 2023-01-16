@@ -1,16 +1,13 @@
 import React, { FC, useState } from "react";
 import styled from "styled-components";
 import { useDate, useLocale } from "../hooks";
+import { Locale } from "../locales";
 import { CalendarEvent } from "../models";
-import {
-  changeMonth,
-  isToday,
-  LOCALISED_MONTH_NAMES,
-  LOCALISED_WEEK_DAYS,
-  YEAR_SYMBOLS,
-} from "../utils";
+import { changeMonth, isToday } from "../utils";
 import { BackButton } from "./BackButton";
+import { DaysOfWeek } from "./DaysOfWeek";
 import { Modal } from "./Modal";
+import { MonthYear } from "./MonthYear";
 import { NextButton } from "./NextButton";
 
 const Container = styled.div`
@@ -57,22 +54,6 @@ const Header = styled.div`
   padding-right: 1.5rem;
 `;
 
-const MonthSpan = styled.span`
-  color: #2d3748;
-  color: rgba(45, 55, 72, var(--text-opacity));
-  cursor: pointer;
-  font-size: 1.125rem;
-  font-weight: 700;
-`;
-const YearSpan = styled.span`
-  color: #718096;
-  color: rgba(113, 128, 150, var(--text-opacity));
-  cursor: pointer;
-  font-size: 1.125rem;
-  font-weight: 400;
-  margin-left: 0.25rem;
-`;
-
 const DatesWrapper = styled.div`
   box-sizing: border-box;
   border-width: 0;
@@ -81,38 +62,6 @@ const DatesWrapper = styled.div`
   margin-bottom: -0.25rem;
   margin-left: -0.25rem;
   margin-right: -0.25rem;
-`;
-
-const Weekdays = styled.div`
-  box-sizing: border-box;
-  border-width: 0;
-  border-style: solid;
-  border-color: #e2e8f0;
-  display: flex;
-  flex-wrap: wrap;
-  margin-bottom: -40px;
-`;
-
-const WeekdayWrapper = styled.div`
-  box-sizing: border-box;
-  border-width: 0;
-  border-style: solid;
-  border-color: #e2e8f0;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
-  width: 14.26%;
-`;
-
-const Weekday = styled.div`
-  letter-spacing: 0.025em;
-  text-transform: uppercase;
-  color: #718096;
-  color: rgba(113, 128, 150, var(--text-opacity));
-  text-align: center;
-  font-size: 0.875rem;
-  font-weight: 700;
 `;
 
 const Days = styled.div`
@@ -153,6 +102,7 @@ const DayWrapper = styled.div`
   position: relative;
   width: 14.28%;
   height: 120px;
+  text-align: start;
 `;
 
 const Day = styled.div<{ isToday: boolean }>`
@@ -235,24 +185,38 @@ const EventText = styled.p`
   white-space: nowrap;
 `;
 
-type FullCalendarProps = {
+type CommonProps = {
   date: Date;
   events: CalendarEvent[];
-  locale?: "en-GB" | "en-US" | "es-ES" | "fr-FR" | "ja-JP";
   addEvent(event: CalendarEvent): void;
 };
+
+type TruncateProps = {
+  defaultLocale?: "ar";
+  weekStartsOn?: "sat";
+} | {
+  defaultLocale?: Locale;
+  weekStartsOn?: "mon" | "sun";
+}
+
+type FullCalendarProps = CommonProps & TruncateProps;
 
 export const FullCalendar: FC<FullCalendarProps> = ({
   date,
   events,
-  locale,
+  defaultLocale,
+  weekStartsOn,
   addEvent,
 }) => {
   const [shownDate, setShownDate] = useState(date);
   const [open, setOpen] = useState(false);
-  const defaultLocale = locale ?? useLocale();
+  const locale = defaultLocale ?? useLocale();
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const { blankDays, days } = useDate(shownDate, defaultLocale);
+  const { blankDays, days } = useDate({
+    date: shownDate,
+    locale,
+    firstDay: weekStartsOn,
+  });
 
   const handleDayClick = (pickedDate: Date) => {
     return () => {
@@ -274,28 +238,17 @@ export const FullCalendar: FC<FullCalendarProps> = ({
   };
 
   return (
-    <Container>
+    <Container dir={locale !== "ar" ? "ltr" : "rtl"}>
       <CalendarWrapper>
         <Header>
-          <div>
+          <div dir="ltr">
             <BackButton onClick={handleIconClick(false)} />
             <NextButton onClick={handleIconClick(true)} />
           </div>
-          <div>
-            <MonthSpan>
-              {LOCALISED_MONTH_NAMES[defaultLocale][shownDate.getMonth()]}
-            </MonthSpan>
-            <YearSpan>{shownDate.getFullYear()}{YEAR_SYMBOLS[defaultLocale]}</YearSpan>
-          </div>
+          <MonthYear locale={locale} shownDate={shownDate} />
         </Header>
         <DatesWrapper>
-          <Weekdays>
-            {LOCALISED_WEEK_DAYS[defaultLocale].map((weekday, index) => (
-              <WeekdayWrapper key={index}>
-                <Weekday>{weekday}</Weekday>
-              </WeekdayWrapper>
-            ))}
-          </Weekdays>
+          <DaysOfWeek locale={locale} weekStartsOn={weekStartsOn} />
           <Days>
             {blankDays.map((_b, i) => (
               <BlankDayWrapper key={i}></BlankDayWrapper>

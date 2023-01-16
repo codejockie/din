@@ -20,6 +20,14 @@ export default {
       control: "object",
       description: "Events to render on the calendar dates.",
     },
+    defaultLocale: {
+      control: "inline-radio",
+      description: "The default locale to use when rendering calendar.",
+    },
+    weekStartsOn: {
+      control: "inline-radio",
+      description: "The day that starts the week.",
+    },
   },
 } as ComponentMeta<typeof Component>;
 
@@ -75,8 +83,36 @@ Default.args = {
   },
 };
 Default.argTypes = {
-  locale: {
+  defaultLocale: {
     control: false,
+    table: {
+      disable: true,
+    },
+  },
+};
+
+const disbledControls = {
+  date: {
+    table: {
+      disable: true,
+    },
+  },
+  events: {
+    table: {
+      disable: true,
+    },
+  },
+  addEvent: {
+    table: {
+      disable: true,
+    },
+  },
+  defaultLocale: {
+    table: {
+      disable: true,
+    },
+  },
+  weekStartsOn: {
     table: {
       disable: true,
     },
@@ -90,8 +126,55 @@ export const Localised: ComponentStory<typeof Component> = (args) => (
 Localised.args = {
   date,
   events,
-  locale: "ja-JP",
+  defaultLocale: "ja",
   addEvent(newEvent) {
     events?.push(newEvent as any);
   },
+};
+
+Localised.argTypes = {
+  ...disbledControls,
+  defaultLocale: {
+    control: "inline-radio",
+  },
+};
+
+export const WeekStartsOn: ComponentStory<typeof Component> = (args) => (
+  <Component {...args} date={new Date(args.date)} />
+);
+
+WeekStartsOn.args = {
+  date,
+  events,
+  defaultLocale: "zh",
+  weekStartsOn: "mon",
+  addEvent(newEvent) {
+    events?.push(newEvent as any);
+  },
+};
+
+WeekStartsOn.argTypes = {
+  ...disbledControls,
+  weekStartsOn: {
+    control: { type: "inline-radio" },
+    options: ["mon", "sun"],
+  },
+};
+
+export const Arabic: ComponentStory<typeof Component> = (args) => (
+  <Component {...args} date={new Date(args.date)} />
+);
+
+Arabic.args = {
+  date,
+  events,
+  defaultLocale: "ar",
+  weekStartsOn: "sat",
+  addEvent(newEvent) {
+    events?.push(newEvent as any);
+  },
+};
+
+Arabic.argTypes = {
+  ...disbledControls,
 };

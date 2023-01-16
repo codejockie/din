@@ -1,30 +1,8 @@
-export const WEEK_DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+export const WEEK_DAYS = ["sun", "mon", "tue", "wed", "thu", "Fri", "sat"];
 /*
   In most countries of the world, Monday is the first day of the week. In many Muslim countries, the first day of the week is Saturday.
   In North and South America, as well as in China, Japan, the Philippines, South Korea, Israel, Kenya, Hong Kong and South Africa, the first day of the week is Sunday.
  */
-export const YEAR_SYMBOLS = {
-  "en-GB": "",
-  "en-US": "",
-  "es-ES": "",
-  "fr-FR": "",
-  "it-IT": "",
-  "ja-JP": "年",
-};
-export const LOCALISED_WEEK_DAYS = {
-  "en-GB": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-  "en-US": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
-  "es-ES": ["lun", "mar", "mié", "jue", "vie", "sáb", "dom"],
-  "fr-FR": ["lun", "mar", "mer", "jeu", "ven", "sam", "dim"],
-  "ja-JP": ["日", "月", "火", "水", "木", "金", "土"],
-};
-export const LOCALISED_WEEK_DAYS_SHORT = {
-  "en-GB": ["M", "T", "W", "T", "F", "S", "S"],
-  "en-US": ["S", "M", "T", "W", "T", "F", "S"],
-  "es-ES": ["L", "M", "X", "J", "V", "S", "D"],
-  "fr-FR": ["L", "M", "M", "J", "V", "S", "D"],
-  "ja-JP": ["日", "月", "火", "水", "木", "金", "土"],
-};
 export const LOCALISED_WEEK_DAYS_LONG = {
   // prettier-ignore
   "en-GB": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
